@@ -1,0 +1,16 @@
+only for test.
+
+##PROPS##
+start cassino_props
+
+##INTERIORES##
+
+start vwdlc_int_02
+start simpletp-bySimpleX
+
+##EXTERIOR##
+
+start ch3_additions
+
+
+

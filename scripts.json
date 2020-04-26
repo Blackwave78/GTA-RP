@@ -1,0 +1,33 @@
+{
+	"name": "Gta RP",
+	"author": "me",
+	"website": "",
+	"resources": {
+		"esx-org/es_extended": "1.0.11",
+		"esx-org/esx_menu_default": "1.0.2",
+		"esx-org/esx_menu_dialog": "1.0.0",
+		"esx-org/esx_menu_list": "1.0.0",
+		"esx-org/async": "1.0.1",
+		"brouznouf/fivem-mysql-async": "v2.0.2",
+		"esx-org/skinchanger": "1.0.1",
+		"esx-org/esx_addonaccount": "1.0.0",
+		"esx-org/esx_addoninventory": "1.0.0",
+		"esx-org/esx_ambulancejob": "1.0.6",
+		"esx-org/esx_animations": "1.0.0",
+		"esx-org/esx_atm": "1.0.0"
+	},
+	"folder": {
+		"esx-org/es_extended": "essential",
+		"esx-org/esx_menu_default": "esx",
+		"esx-org/esx_menu_dialog": "esx",
+		"esx-org/esx_menu_list": "esx",
+		"esx-org/async": "esx",
+		"brouznouf/fivem-mysql-async": "esx",
+		"esx-org/skinchanger": "esx",
+		"esx-org/esx_addonaccount": "esx",
+		"esx-org/esx_addoninventory": "esx",
+		"esx-org/esx_ambulancejob": "esx",
+		"esx-org/esx_animations": "esx",
+		"esx-org/esx_atm": "esx"
+	}
+}
