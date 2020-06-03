@@ -1,0 +1,6 @@
+esx _basicneed a modifier
+
+ajouter des options dans menu admin (inventaire des autres) voir policejob
+
+
+ajouter des tp pour la drugs et rm le blip, ajouter illegal infi pour trouver les point de drogue

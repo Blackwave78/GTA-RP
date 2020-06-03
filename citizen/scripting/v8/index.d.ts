@@ -10,6 +10,8 @@ interface ResultAsInteger {}
 interface ResultAsFloat {}
 interface ResultAsString {}
 interface ResultAsVector {}
+interface ResultAsLong {}
+interface ResultAsObject {}
 
 type InputArgument =
     string |
@@ -23,7 +25,9 @@ type InputArgument =
     ResultAsInteger |
     ResultAsFloat |
     ResultAsString |
-    ResultAsVector;
+    ResultAsVector |
+    ResultAsLong |
+    ResultAsObject;
 
 interface CitizenInterface {
     trace(...args: string[]): void
@@ -51,6 +55,8 @@ interface CitizenInterface {
     resultAsFloat(): ResultAsFloat
     resultAsString(): ResultAsString
     resultAsVector(): ResultAsVector
+    resultAsLong(): ResultAsLong
+    rsesultAsObject(): ResultAsObject
 
     makeRefFunction(refFunction: Function): string
 }
@@ -71,12 +77,17 @@ declare function TriggerEvent(eventName: string, ...args: any[]): void
 
 declare function emitNet(eventName: string, ...args: any[]): void
 declare function TriggerServerEvent(eventName: string, ...args: any[]): void
+declare function TriggerLatentServerEvent(eventName: string, bps: number, ...args: any[]): void
 
 declare function emitNet(eventName: string, target: number|string, ...args: any[]): void
 declare function TriggerClientEvent(eventName: string, target: number|string, ...args: any[]): void
+declare function TriggerLatentClientEvent(eventName: string, target: number|string, bps: number, ...args: any[]): void
 
 declare function removeEventListener(eventName: string, callback: Function): void
 
-declare function setTick(callback: Function): void
+declare function setTick(callback: Function): number
+declare function clearTick(callback: number): void
 
 declare var exports: any;
+
+declare var source: string;

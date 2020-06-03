@@ -1,14 +1,14 @@
 
 REM change-me
-set pathdir=/d C:\Users\Blackwavez\Desktop\server
+set pathdir=/d C:\Users\PC\Desktop\Servergta
 REM change-me
-set startpath="Server" C:\Users\Blackwavez\Desktop\server\run.cmd +exec serveur.cfg
+set startpath="Server" C:\Users\PC\Desktop\Servergta\run.cmd +exec server.cfg
 
 :loop
 
 Title GTARPFIVEMLAUNCHER
 	@echo Clearing Server Cache Files
-	
+	 
 	cd %pathdir%
 
 	rm /s /q cache

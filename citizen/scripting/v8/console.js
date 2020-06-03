@@ -1,6 +1,7 @@
 // Global console
 
 (function (global) {
+    const monitorMode = (GetConvar('monitormode', 'false') == 'true') && IsDuplicityVersion();
     const percent = '%'.charCodeAt(0);
 
     const stringSpecifier = 's'.charCodeAt(0);
@@ -113,7 +114,16 @@
 
             case Array.isArray(arg):
             case arg.toString() === "[object Object]":
-                return JSON.stringify(arg, null, 2);
+                let cache = [];
+                let out = JSON.stringify(arg, (key, value) => {
+                    if (typeof value === 'object' && value !== null) {
+                        if (cache.indexOf(value) !== -1) return;
+                        cache.push(value);
+                    }
+                    return value;
+                }, 2);
+                cache = null;
+                return out;
 
             case arg.toString() === "[object Error]" || arg instanceof Error:
                 return arg.stack || Error.prototype.toString.call(arg);
@@ -207,7 +217,8 @@
             this._timers = new Map();
             this._counters = new Map();
 
-            this.log = this.log.bind(this);
+            // TODO: Improve the sync console output.
+            this.log = (monitorMode) ? this.logSync.bind(this) : this.log.bind(this);
             this.info = this.info.bind(this);
             this.warn = this.warn.bind(this);
             this.time = this.time.bind(this);
@@ -261,6 +272,10 @@
             this._trace(format(message, ...optionalParams));
         }
 
+        logSync(message = undefined, ...optionalParams) {
+            process.stdout.write(format(message, ...optionalParams) + "\n");
+        }
+
         debug(message = undefined, ...optionalParams) {
             this._trace('Debug: ' + format(message, ...optionalParams));
         }
@@ -293,11 +308,28 @@
         }
 
         count(label) {
-            const counter = this._counters.get(label) || 1;
+            if (label === undefined) {
+                label = 'default'
+            }
+            const counter = this._counters.get(label) ? this._counters.get(label) + 1 : 1;
 
             this._counters.set(label, counter);
 
             this.log(`${label}: ${counter}`);
+        }
+
+        countReset(label) {
+            if (label === undefined) {
+                label = 'default'
+            }
+            if (this._counters.get(label) === undefined) {
+                this.warn(`Counter "${label}" doesn't exist.`);
+                return
+            }
+
+            this._counters.set(label, undefined);
+
+            this.log(`${label}: 0`);
         }
 
         time(label) {
@@ -310,11 +342,11 @@
                 return;
             }
 
-            const duration = Citizen.getTickCount() - this._timers.get(lable);
+            const duration = Citizen.getTickCount() - this._timers.get(label);
 
             this.log(`${label}: ${duration} ms`);
 
-            this._times.delete(label);
+            this._timers.delete(label);
         }
 
         assert(expression, ...args) {
@@ -331,4 +363,4 @@
     }
 
     global.console = new Console();
-})(this || window);
+})(this || globalThis);
